@@ -1,8 +1,7 @@
 package com.sideagroup.accademy.controller.api;
 
 import com.sideagroup.accademy.dto.MovieDto;
-import com.sideagroup.accademy.service.impl.MovieDummyService;
-import com.sideagroup.accademy.service.impl.MovieNullService;
+import com.sideagroup.accademy.service.impl.MovieMemoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,8 +13,8 @@ public class MovieController {
 
     // Per i più esperti, non badate a queste variabili;
     // Il controller evolverà durante il corso.
-    private MovieDummyService movieServices = new MovieDummyService();
-    //private MovieNullService movieServices = new MovieNullService();
+    private MovieMemoryService movieServices = new MovieMemoryService();
+    //private MovieDbService movieServices = new MovieDbService();
 
 
     @GetMapping

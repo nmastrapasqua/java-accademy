@@ -3,10 +3,9 @@ package com.sideagroup.accademy.service.impl;
 import com.sideagroup.accademy.dto.MovieDto;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
-public class MovieNullService {
+public class MovieDbService {
 
     public Iterable<MovieDto> getAll() {
         return new ArrayList<>();
@@ -17,7 +16,7 @@ public class MovieNullService {
     }
 
     public MovieDto create(MovieDto movie) {
-        return movie;
+        return null;
     }
 
     public Optional<MovieDto> update(long id, MovieDto movie) {
