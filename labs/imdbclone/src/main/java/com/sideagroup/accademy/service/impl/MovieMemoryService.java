@@ -10,7 +10,7 @@ import java.util.Optional;
 
 //@Service
 @Service("mainMovieService")
-public class MovieDummyService implements MovieService {
+public class MovieMemoryService implements MovieService {
     private List<MovieDto> movies = new ArrayList<>();
     private long lastId = 0;
 

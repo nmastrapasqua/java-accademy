@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 //@Service("mainMovieService")
-public class MovieNullService implements MovieService {
+public class MovieDbService implements MovieService {
 
     @Override
     public Iterable<MovieDto> getAll() {
