@@ -14,11 +14,7 @@ public class NameBasics {
 
     @Column(length = 1000, nullable = false)
     private String primaryName;
-
-    @Column(nullable = false)
     private Integer birthYear;
-
-    @Column(nullable = false)
     private Integer deathYear;
 
     public String getId() {
