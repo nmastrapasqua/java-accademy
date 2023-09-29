@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Table(name="name_basics")
 public class NameBasics {
     @Id
-    @Column(name = "nconst", length = 200, nullable = false)
+    @Column(name = "nconst", length = 200)
     private String id;
 
     @Column(length = 1000, nullable = false)
