@@ -3,6 +3,7 @@ package com.sideagroup.accademy.dto;
 public class MovieCelebrityDto {
 
     private String name;
+    private String title;
     private String category;
     private String characters;
 
@@ -28,5 +29,13 @@ public class MovieCelebrityDto {
 
     public void setCharacters(String characters) {
         this.characters = characters;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

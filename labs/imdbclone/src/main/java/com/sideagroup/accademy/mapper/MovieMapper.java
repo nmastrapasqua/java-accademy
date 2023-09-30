@@ -10,12 +10,10 @@ import com.sideagroup.accademy.model.MovieCelebrity;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 @Component
-public class MovieMapper {
+public class MovieMapper extends BaseMapper {
 
     public MovieDto toDto(Movie entity, boolean withCast) {
         MovieDto dto = new MovieDto();
@@ -41,10 +39,10 @@ public class MovieMapper {
 
     public GetAllMoviesResponseDto toDto(Page<Movie> movies, int size) {
         GetAllMoviesResponseDto dto = new GetAllMoviesResponseDto();
-        dto.setCurrentPage(movies.getNumber());
-        dto.setTotalElements(movies.getTotalElements());
-        dto.setTotalPages(movies.getTotalPages());
-        dto.setPageSize(size);
+        dto.getPagination().setCurrentPage(movies.getNumber());
+        dto.getPagination().setTotalElements(movies.getTotalElements());
+        dto.getPagination().setTotalPages(movies.getTotalPages());
+        dto.getPagination().setPageSize(size);
         dto.getMovies().addAll(movies.getContent().stream().map(item -> toDto(item, false)).toList());
         return dto;
     }
@@ -66,18 +64,5 @@ public class MovieMapper {
         entity.setRuntimeMinutes(dto.getRunningTime());
     }
 
-    private String normalizeCharacters(String characters) {
-        if (characters == null)
-            return null;
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            List<String> characterList =
-                Arrays.asList(mapper.readValue(characters, String[].class));
-            return characterList.toString()
-                    .replace("[", "")
-                    .replace("]", "");
-        } catch (JsonProcessingException e) {
-            return characters;
-        }
-    }
+
 }

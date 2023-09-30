@@ -3,10 +3,9 @@ package com.sideagroup.accademy.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetAllMoviesResponseDto {
-
+public class GetAllCelebritiesResponseDto {
     private PaginationDto pagination = new PaginationDto();
-    List<MovieDto> movies = new ArrayList<>();
+    List<CelebrityDto> celebrities = new ArrayList<>();
 
     public PaginationDto getPagination() {
         return pagination;
@@ -16,11 +15,11 @@ public class GetAllMoviesResponseDto {
         this.pagination = pagination;
     }
 
-    public List<MovieDto> getMovies() {
-        return movies;
+    public List<CelebrityDto> getCelebrities() {
+        return celebrities;
     }
 
-    public void setMovies(List<MovieDto> movies) {
-        this.movies = movies;
+    public void setCelebrities(List<CelebrityDto> celebrities) {
+        this.celebrities = celebrities;
     }
 }
