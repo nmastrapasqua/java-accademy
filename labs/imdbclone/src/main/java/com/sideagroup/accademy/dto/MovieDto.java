@@ -1,16 +1,23 @@
 package com.sideagroup.accademy.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MovieDto {
-    private long id;
+    private String id;
     private String title;
     private int year;
     private int runningTime;
 
-    public long getId() {
+    private String genres;
+
+    private List<CastItemDto> cast = new ArrayList<>();
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -36,5 +43,21 @@ public class MovieDto {
 
     public void setRunningTime(int runningTime) {
         this.runningTime = runningTime;
+    }
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
+    }
+
+    public List<CastItemDto> getCast() {
+        return cast;
+    }
+
+    public void setCast(List<CastItemDto> cast) {
+        this.cast = cast;
     }
 }

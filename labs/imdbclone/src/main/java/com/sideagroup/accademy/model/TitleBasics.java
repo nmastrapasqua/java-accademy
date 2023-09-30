@@ -1,9 +1,8 @@
 package com.sideagroup.accademy.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "title_basics")
@@ -18,6 +17,9 @@ public class TitleBasics {
     private Integer runtimeMinutes;
     @Column(length = 1000)
     private String genres;
+
+    @OneToMany(mappedBy = "titleBasics")
+    private Set<TitlePrincipals> names;
 
     public String getId() {
         return id;
@@ -57,5 +59,13 @@ public class TitleBasics {
 
     public void setGenres(String genres) {
         this.genres = genres;
+    }
+
+    public Set<TitlePrincipals> getNames() {
+        return names;
+    }
+
+    public void setNames(Set<TitlePrincipals> names) {
+        this.names = names;
     }
 }

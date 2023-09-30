@@ -1,9 +1,8 @@
 package com.sideagroup.accademy.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name="name_basics")
@@ -16,6 +15,9 @@ public class NameBasics {
     private String primaryName;
     private Integer birthYear;
     private Integer deathYear;
+
+    @OneToMany(mappedBy = "nameBasics")
+    private Set<TitlePrincipals> titles;
 
     public String getId() {
         return id;
@@ -47,5 +49,13 @@ public class NameBasics {
 
     public void setDeathYear(Integer deathYear) {
         this.deathYear = deathYear;
+    }
+
+    public Set<TitlePrincipals> getTitles() {
+        return titles;
+    }
+
+    public void setTitles(Set<TitlePrincipals> titles) {
+        this.titles = titles;
     }
 }
