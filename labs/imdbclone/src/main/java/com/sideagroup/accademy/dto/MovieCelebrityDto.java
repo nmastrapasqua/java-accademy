@@ -1,6 +1,6 @@
 package com.sideagroup.accademy.dto;
 
-public class CastItemDto {
+public class MovieCelebrityDto {
 
     private String name;
     private String category;

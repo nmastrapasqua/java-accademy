@@ -11,7 +11,7 @@ public class MovieDto {
 
     private String genres;
 
-    private List<CastItemDto> cast = new ArrayList<>();
+    private List<MovieCelebrityDto> cast = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -53,11 +53,11 @@ public class MovieDto {
         this.genres = genres;
     }
 
-    public List<CastItemDto> getCast() {
+    public List<MovieCelebrityDto> getCast() {
         return cast;
     }
 
-    public void setCast(List<CastItemDto> cast) {
+    public void setCast(List<MovieCelebrityDto> cast) {
         this.cast = cast;
     }
 }

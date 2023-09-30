@@ -1,6 +1,6 @@
 package com.sideagroup.accademy.controller.api;
 
-import com.sideagroup.accademy.dto.GetAllMovieResponseDto;
+import com.sideagroup.accademy.dto.GetAllMoviesResponseDto;
 import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.exception.GenericServiceException;
 import com.sideagroup.accademy.service.MovieService;
@@ -19,7 +19,7 @@ public class MovieController {
 
 
     @GetMapping
-    public GetAllMovieResponseDto getAll(
+    public GetAllMoviesResponseDto getAll(
             @RequestParam(name="page", required=false, defaultValue="0") int page,
             @RequestParam(name="size", required=false, defaultValue="20") int size,
             @RequestParam(name="order_by", required=false, defaultValue="id") String orderBy) {

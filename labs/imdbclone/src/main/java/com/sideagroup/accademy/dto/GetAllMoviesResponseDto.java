@@ -3,7 +3,7 @@ package com.sideagroup.accademy.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetAllMovieResponseDto {
+public class GetAllMoviesResponseDto {
     private int currentPage;
 
     private int pageSize;

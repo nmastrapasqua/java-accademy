@@ -2,11 +2,11 @@ package com.sideagroup.accademy.mapper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sideagroup.accademy.dto.CastItemDto;
-import com.sideagroup.accademy.dto.GetAllMovieResponseDto;
+import com.sideagroup.accademy.dto.MovieCelebrityDto;
+import com.sideagroup.accademy.dto.GetAllMoviesResponseDto;
 import com.sideagroup.accademy.dto.MovieDto;
-import com.sideagroup.accademy.model.TitleBasics;
-import com.sideagroup.accademy.model.TitlePrincipals;
+import com.sideagroup.accademy.model.Movie;
+import com.sideagroup.accademy.model.MovieCelebrity;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-public class TitleBasicsMapper {
+public class MovieMapper {
 
-    public MovieDto toDto(TitleBasics entity, boolean withCast) {
+    public MovieDto toDto(Movie entity, boolean withCast) {
         MovieDto dto = new MovieDto();
         dto.setTitle(entity.getTitle());
         dto.setId(entity.getId());
@@ -28,19 +28,19 @@ public class TitleBasicsMapper {
         if (!withCast)
             return dto;
 
-        Set<TitlePrincipals> titlePrincipalsSet = entity.getNames();
-        for (TitlePrincipals tp : titlePrincipalsSet ) {
-            CastItemDto castItemDto = new CastItemDto();
-            castItemDto.setName(tp.getNameBasics().getPrimaryName());
-            castItemDto.setCategory(tp.getCategory());
-            castItemDto.setCharacters(normalizeCharacters(tp.getCharacters()));
-            dto.getCast().add(castItemDto);
+        Set<MovieCelebrity> movieCelebritySet = entity.getNames();
+        for (MovieCelebrity tp : movieCelebritySet) {
+            MovieCelebrityDto movieCelebrityDto = new MovieCelebrityDto();
+            movieCelebrityDto.setName(tp.getCelebrity().getPrimaryName());
+            movieCelebrityDto.setCategory(tp.getCategory());
+            movieCelebrityDto.setCharacters(normalizeCharacters(tp.getCharacters()));
+            dto.getCast().add(movieCelebrityDto);
         }
         return dto;
     }
 
-    public GetAllMovieResponseDto toDto(Page<TitleBasics> movies, int size) {
-        GetAllMovieResponseDto dto = new GetAllMovieResponseDto();
+    public GetAllMoviesResponseDto toDto(Page<Movie> movies, int size) {
+        GetAllMoviesResponseDto dto = new GetAllMoviesResponseDto();
         dto.setCurrentPage(movies.getNumber());
         dto.setTotalElements(movies.getTotalElements());
         dto.setTotalPages(movies.getTotalPages());
@@ -49,8 +49,8 @@ public class TitleBasicsMapper {
         return dto;
     }
 
-    public TitleBasics toEntity(MovieDto dto) {
-        TitleBasics entity = new TitleBasics();
+    public Movie toEntity(MovieDto dto) {
+        Movie entity = new Movie();
         entity.setTitle(dto.getTitle());
         entity.setGenres(dto.getGenres());
         entity.setId(dto.getId());
@@ -59,7 +59,7 @@ public class TitleBasicsMapper {
         return entity;
     }
 
-    public void updateFromDto(TitleBasics entity, MovieDto dto) {
+    public void updateFromDto(Movie entity, MovieDto dto) {
         entity.setTitle(dto.getTitle());
         entity.setGenres(dto.getGenres());
         entity.setYear(dto.getYear());

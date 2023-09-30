@@ -1,10 +1,10 @@
 package com.sideagroup.accademy.service.impl;
 
-import com.sideagroup.accademy.dto.GetAllMovieResponseDto;
+import com.sideagroup.accademy.dto.GetAllMoviesResponseDto;
 import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.exception.GenericServiceException;
-import com.sideagroup.accademy.mapper.TitleBasicsMapper;
-import com.sideagroup.accademy.model.TitleBasics;
+import com.sideagroup.accademy.mapper.MovieMapper;
+import com.sideagroup.accademy.model.Movie;
 import com.sideagroup.accademy.repository.TitleBasicsRepository;
 import com.sideagroup.accademy.service.MovieService;
 import org.slf4j.Logger;
@@ -26,19 +26,19 @@ public class MovieDbService implements MovieService {
     private TitleBasicsRepository repo;
 
     @Autowired
-    private TitleBasicsMapper mapper;
+    private MovieMapper mapper;
 
     @Override
-    public GetAllMovieResponseDto getAll(int page, int size, String orderBy) {
+    public GetAllMoviesResponseDto getAll(int page, int size, String orderBy) {
         validateInput(orderBy);
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
-        Page<TitleBasics> movies = repo.findAll(pageable);
+        Page<Movie> movies = repo.findAll(pageable);
         return mapper.toDto(movies, size);
     }
 
     @Override
     public Optional<MovieDto> getById(String id) {
-        Optional<TitleBasics> result = repo.findById(id);
+        Optional<Movie> result = repo.findById(id);
         if (!result.isEmpty()) {
             MovieDto dto = mapper.toDto(result.get(), true);
             return Optional.of(dto);
@@ -49,20 +49,20 @@ public class MovieDbService implements MovieService {
 
     @Override
     public MovieDto create(MovieDto movie) {
-        Optional<TitleBasics> opt = repo.findById(movie.getId());
+        Optional<Movie> opt = repo.findById(movie.getId());
         if (!opt.isEmpty())
             throw new GenericServiceException("Movie with id " + movie.getId() + " already exists");
-        TitleBasics entity = repo.save(mapper.toEntity(movie));
+        Movie entity = repo.save(mapper.toEntity(movie));
         return mapper.toDto(entity, false);
     }
 
     @Override
     public Optional<MovieDto> update(String id, MovieDto movie) {
-        Optional<TitleBasics> opt = repo.findById(id);
+        Optional<Movie> opt = repo.findById(id);
         if (opt.isEmpty())
             return Optional.empty();
 
-        TitleBasics entity = opt.get();
+        Movie entity = opt.get();
         mapper.updateFromDto(entity, movie);
         entity = repo.save(entity);
 

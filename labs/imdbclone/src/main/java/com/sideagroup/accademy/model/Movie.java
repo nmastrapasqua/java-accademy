@@ -5,11 +5,11 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "title_basics")
-public class TitleBasics {
+@Table(name = "movie")
+public class Movie {
 
     @Id
-    @Column(name = "tconst", length = 200)
+    @Column(length = 200)
     private String id;
     @Column(length = 1000, nullable = false)
     private String title;
@@ -18,8 +18,8 @@ public class TitleBasics {
     @Column(length = 1000)
     private String genres;
 
-    @OneToMany(mappedBy = "titleBasics")
-    private Set<TitlePrincipals> names;
+    @OneToMany(mappedBy = "movie")
+    private Set<MovieCelebrity> names;
 
     public String getId() {
         return id;
@@ -61,11 +61,11 @@ public class TitleBasics {
         this.genres = genres;
     }
 
-    public Set<TitlePrincipals> getNames() {
+    public Set<MovieCelebrity> getNames() {
         return names;
     }
 
-    public void setNames(Set<TitlePrincipals> names) {
+    public void setNames(Set<MovieCelebrity> names) {
         this.names = names;
     }
 }

@@ -5,10 +5,10 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="name_basics")
-public class NameBasics {
+@Table(name="celebrity")
+public class Celebrity {
     @Id
-    @Column(name = "nconst", length = 200)
+    @Column(length = 200)
     private String id;
 
     @Column(length = 1000, nullable = false)
@@ -16,8 +16,8 @@ public class NameBasics {
     private Integer birthYear;
     private Integer deathYear;
 
-    @OneToMany(mappedBy = "nameBasics")
-    private Set<TitlePrincipals> titles;
+    @OneToMany(mappedBy = "celebrity")
+    private Set<MovieCelebrity> titles;
 
     public String getId() {
         return id;
@@ -51,11 +51,11 @@ public class NameBasics {
         this.deathYear = deathYear;
     }
 
-    public Set<TitlePrincipals> getTitles() {
+    public Set<MovieCelebrity> getTitles() {
         return titles;
     }
 
-    public void setTitles(Set<TitlePrincipals> titles) {
+    public void setTitles(Set<MovieCelebrity> titles) {
         this.titles = titles;
     }
 }

@@ -3,19 +3,19 @@ package com.sideagroup.accademy.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "title_principals")
-public class TitlePrincipals {
+@Table(name = "movie_celebrity")
+public class MovieCelebrity {
 
     @EmbeddedId
-    private TitlePrincipalsKey id;
+    private MovieCelebrityKey id;
 
     @ManyToOne
-    @MapsId("nameBasicsId")
-    private NameBasics nameBasics;
+    @MapsId("celebrityId")
+    private Celebrity celebrity;
 
     @ManyToOne
-    @MapsId("titleBasicsId")
-    private TitleBasics titleBasics;
+    @MapsId("movieId")
+    private Movie movie;
 
     @Column(length = 1000)
     private String category;
@@ -23,28 +23,28 @@ public class TitlePrincipals {
     @Column(length = 1000)
     private String characters;
 
-    public TitlePrincipalsKey getId() {
+    public MovieCelebrityKey getId() {
         return id;
     }
 
-    public void setId(TitlePrincipalsKey id) {
+    public void setId(MovieCelebrityKey id) {
         this.id = id;
     }
 
-    public NameBasics getNameBasics() {
-        return nameBasics;
+    public Celebrity getCelebrity() {
+        return celebrity;
     }
 
-    public void setNameBasics(NameBasics nameBasics) {
-        this.nameBasics = nameBasics;
+    public void setCelebrity(Celebrity celebrity) {
+        this.celebrity = celebrity;
     }
 
-    public TitleBasics getTitleBasics() {
-        return titleBasics;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setTitleBasics(TitleBasics titleBasics) {
-        this.titleBasics = titleBasics;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
     public String getCategory() {
