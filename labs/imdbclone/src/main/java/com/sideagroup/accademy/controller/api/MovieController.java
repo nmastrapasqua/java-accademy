@@ -5,7 +5,6 @@ import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.exception.GenericServiceException;
 import com.sideagroup.accademy.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -66,4 +65,6 @@ public class MovieController {
     public void deleteById(@PathVariable String id) {
         movieServices.deleteById(id);
     }
+
+    // /api/v1/movies/{movieId}/cast/{personId}
 }
