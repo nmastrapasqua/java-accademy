@@ -1,11 +1,18 @@
 package com.sideagroup.accademy.service.impl;
 
 import com.sideagroup.accademy.dto.GetAllMoviesResponseDto;
+import com.sideagroup.accademy.dto.MovieCelebrityDto;
 import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.exception.GenericServiceException;
+import com.sideagroup.accademy.mapper.MovieCelebrityMapper;
 import com.sideagroup.accademy.mapper.MovieMapper;
+import com.sideagroup.accademy.model.Celebrity;
 import com.sideagroup.accademy.model.Movie;
-import com.sideagroup.accademy.repository.TitleBasicsRepository;
+import com.sideagroup.accademy.model.MovieCelebrity;
+import com.sideagroup.accademy.model.MovieCelebrityKey;
+import com.sideagroup.accademy.repository.CelebrityRepository;
+import com.sideagroup.accademy.repository.MovieCelebrityRepository;
+import com.sideagroup.accademy.repository.MovieRepository;
 import com.sideagroup.accademy.service.MovieService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +30,19 @@ public class MovieDbService implements MovieService {
     private static final Logger logger = LoggerFactory.getLogger(MovieDbService.class);
 
     @Autowired
-    private TitleBasicsRepository repo;
+    private MovieRepository repo;
+
+    @Autowired
+    private CelebrityRepository celebrityRepo;
+
+    @Autowired
+    private MovieCelebrityRepository movieCelebrityRepository;
 
     @Autowired
     private MovieMapper mapper;
+
+    @Autowired
+    private MovieCelebrityMapper movieCelebrityMapper;
 
     @Override
     public GetAllMoviesResponseDto getAll(int page, int size, String orderBy) {
@@ -67,6 +83,33 @@ public class MovieDbService implements MovieService {
         entity = repo.save(entity);
 
         return Optional.of(mapper.toDto(entity, false));
+    }
+
+    @Override
+    public MovieCelebrityDto associateCelebrity(String movieId, String celebrityId, MovieCelebrityDto body) {
+        Optional<Movie> movie = repo.findById(movieId);
+        if (movie.isEmpty())
+            throw new GenericServiceException("Movie with id " + movieId + " does not exists");
+        Optional<Celebrity> celebrity = celebrityRepo.findById(celebrityId);
+        if (celebrity.isEmpty())
+            throw new GenericServiceException("Celebrity with id " + celebrityId + " does not exists");
+
+        MovieCelebrityKey key = new MovieCelebrityKey();
+        key.setCelebrityId(celebrityId);
+        key.setMovieId(movieId);
+
+        Optional<MovieCelebrity> rel = movieCelebrityRepository.findById(key);
+        if (!rel.isEmpty())
+            throw new GenericServiceException("Association between " + movieId + " and " + celebrityId + " already exists");
+
+        MovieCelebrity entity = new MovieCelebrity();
+        entity.setId(key);
+        entity.setCelebrity(celebrity.get());
+        entity.setMovie(movie.get());
+        entity.setCategory(body.getCategory());
+        entity.setCharacters(body.getCharacters());
+        entity = movieCelebrityRepository.save(entity);
+        return movieCelebrityMapper.toDto(entity);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.sideagroup.accademy.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Set;
 
@@ -19,6 +21,7 @@ public class Movie {
     private String genres;
 
     @OneToMany(mappedBy = "movie")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<MovieCelebrity> names;
 
     public String getId() {

@@ -7,6 +7,8 @@ import com.sideagroup.accademy.mapper.CelebrityMapper;
 import com.sideagroup.accademy.model.Celebrity;
 import com.sideagroup.accademy.repository.CelebrityRepository;
 import com.sideagroup.accademy.service.CelebrityService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,8 @@ import java.util.Optional;
 
 @Service
 public class CelebrityDbService implements CelebrityService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CelebrityService.class);
     @Autowired
     private CelebrityRepository repo;
     @Autowired
@@ -66,6 +70,7 @@ public class CelebrityDbService implements CelebrityService {
 
     @Override
     public boolean deleteById(String id) {
+        logger.info("deleteById called");
         repo.deleteById(id);
         return true;
     }

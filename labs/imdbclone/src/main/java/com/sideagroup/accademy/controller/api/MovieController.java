@@ -1,6 +1,7 @@
 package com.sideagroup.accademy.controller.api;
 
 import com.sideagroup.accademy.dto.GetAllMoviesResponseDto;
+import com.sideagroup.accademy.dto.MovieCelebrityDto;
 import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.exception.GenericServiceException;
 import com.sideagroup.accademy.service.MovieService;
@@ -60,11 +61,22 @@ public class MovieController {
         return opt.get();
     }
 
+    @PutMapping("{movieId}/celebrity/{celebrityId}")
+    public MovieCelebrityDto associateCelebrity(
+            @PathVariable String movieId,
+            @PathVariable String celebrityId,
+            @RequestBody MovieCelebrityDto body) {
+        try {
+            return movieServices.associateCelebrity(movieId, celebrityId, body);
+        } catch (GenericServiceException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable String id) {
         movieServices.deleteById(id);
     }
 
-    // /api/v1/movies/{movieId}/cast/{personId}
 }

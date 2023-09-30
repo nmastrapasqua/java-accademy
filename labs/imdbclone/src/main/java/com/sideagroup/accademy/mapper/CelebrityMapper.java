@@ -7,6 +7,7 @@ import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.model.Celebrity;
 import com.sideagroup.accademy.model.Movie;
 import com.sideagroup.accademy.model.MovieCelebrity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,9 @@ import java.util.Set;
 
 @Component
 public class CelebrityMapper extends BaseMapper{
+
+    @Autowired
+    private MovieCelebrityMapper movieCelebrityMapper;
 
     public GetAllCelebritiesResponseDto toDto(Page<Celebrity> entities, int size) {
         GetAllCelebritiesResponseDto dto = new GetAllCelebritiesResponseDto();
@@ -35,14 +39,7 @@ public class CelebrityMapper extends BaseMapper{
         if (!withMovie)
             return dto;
 
-        Set<MovieCelebrity> movieCelebritySet = entity.getTitles();
-        for (MovieCelebrity tp : movieCelebritySet) {
-            MovieCelebrityDto movieCelebrityDto = new MovieCelebrityDto();
-            movieCelebrityDto.setTitle(tp.getMovie().getTitle());
-            movieCelebrityDto.setCategory(tp.getCategory());
-            movieCelebrityDto.setCharacters(normalizeCharacters(tp.getCharacters()));
-            dto.getMovies().add(movieCelebrityDto);
-        }
+        dto.getMovies().addAll(entity.getTitles().stream().map(item -> movieCelebrityMapper.toDto(item)).toList());
 
         return dto;
     }

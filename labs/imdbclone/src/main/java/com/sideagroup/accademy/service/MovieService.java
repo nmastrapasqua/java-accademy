@@ -1,6 +1,7 @@
 package com.sideagroup.accademy.service;
 
 import com.sideagroup.accademy.dto.GetAllMoviesResponseDto;
+import com.sideagroup.accademy.dto.MovieCelebrityDto;
 import com.sideagroup.accademy.dto.MovieDto;
 import java.util.Optional;
 
@@ -13,6 +14,8 @@ public interface MovieService {
     public MovieDto create(MovieDto movie);
 
     public Optional<MovieDto> update(String id, MovieDto movie);
+
+    public MovieCelebrityDto associateCelebrity(String movieId, String celebrityId, MovieCelebrityDto body);
 
     public boolean deleteById(String id);
 }

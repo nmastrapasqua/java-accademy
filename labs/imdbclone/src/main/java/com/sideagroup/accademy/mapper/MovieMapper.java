@@ -1,12 +1,11 @@
 package com.sideagroup.accademy.mapper;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sideagroup.accademy.dto.MovieCelebrityDto;
 import com.sideagroup.accademy.dto.GetAllMoviesResponseDto;
 import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.model.Movie;
 import com.sideagroup.accademy.model.MovieCelebrity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +13,9 @@ import java.util.Set;
 
 @Component
 public class MovieMapper extends BaseMapper {
+
+    @Autowired
+    private MovieCelebrityMapper movieCelebrityMapper;
 
     public MovieDto toDto(Movie entity, boolean withCast) {
         MovieDto dto = new MovieDto();
@@ -26,14 +28,8 @@ public class MovieMapper extends BaseMapper {
         if (!withCast)
             return dto;
 
-        Set<MovieCelebrity> movieCelebritySet = entity.getNames();
-        for (MovieCelebrity tp : movieCelebritySet) {
-            MovieCelebrityDto movieCelebrityDto = new MovieCelebrityDto();
-            movieCelebrityDto.setName(tp.getCelebrity().getPrimaryName());
-            movieCelebrityDto.setCategory(tp.getCategory());
-            movieCelebrityDto.setCharacters(normalizeCharacters(tp.getCharacters()));
-            dto.getCast().add(movieCelebrityDto);
-        }
+        dto.getCast().addAll(entity.getNames().stream().map(item -> movieCelebrityMapper.toDto(item)).toList());
+
         return dto;
     }
 
