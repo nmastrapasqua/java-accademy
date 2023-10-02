@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public class MovieMemoryService {
     private List<MovieDto> movies = new ArrayList<>();
-    private long lastId = 0;
 
     public Iterable<MovieDto> getAll() {
         return movies;
