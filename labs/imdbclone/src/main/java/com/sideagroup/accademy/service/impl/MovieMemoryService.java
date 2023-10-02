@@ -13,20 +13,18 @@ public class MovieMemoryService {
         return movies;
     }
 
-    public Optional<MovieDto> getById(long id) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId() == id).findFirst();
+    public Optional<MovieDto> getById(String id) {
+        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
         return opt;
     }
 
     public MovieDto create(MovieDto movie) {
-        lastId++;
-        movie.setId(lastId);
         movies.add(movie);
         return movie;
     }
 
-    public Optional<MovieDto> update(long id, MovieDto movie) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId() == id).findFirst();
+    public Optional<MovieDto> update(String id, MovieDto movie) {
+        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
 
         if (opt.isEmpty())
             return opt;
@@ -39,8 +37,8 @@ public class MovieMemoryService {
         return opt;
     }
 
-    public boolean deleteById(long id) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId() == id).findFirst();
+    public boolean deleteById(String id) {
+        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
 
         if (opt.isEmpty())
             return false;

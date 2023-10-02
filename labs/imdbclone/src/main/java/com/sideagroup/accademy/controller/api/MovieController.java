@@ -1,6 +1,7 @@
 package com.sideagroup.accademy.controller.api;
 
 import com.sideagroup.accademy.dto.MovieDto;
+import com.sideagroup.accademy.service.impl.MovieDbService;
 import com.sideagroup.accademy.service.impl.MovieMemoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class MovieController {
     }
 
     @GetMapping("{id}")
-    public MovieDto getById(@PathVariable long id) {
+    public MovieDto getById(@PathVariable String id) {
         Optional<MovieDto> opt = movieServices.getById(id);
 
         if (opt.isEmpty())
@@ -39,7 +40,7 @@ public class MovieController {
     }
 
     @PutMapping("{id}")
-    public MovieDto update(@PathVariable long id, @RequestBody MovieDto movie) {
+    public MovieDto update(@PathVariable String id, @RequestBody MovieDto movie) {
         Optional<MovieDto> opt = movieServices.update(id, movie);
 
         if (opt.isEmpty())
@@ -50,7 +51,7 @@ public class MovieController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable long id) {
+    public void deleteById(@PathVariable String id) {
         movieServices.deleteById(id);
     }
 }
