@@ -2,17 +2,25 @@ package com.sideagroup.accademy.dto;
 
 public class MovieCelebrityDto {
 
-    private String name;
-    private String title;
+    private String celebrityName;
+    private String movieTitle;
     private String category;
     private String characters;
 
-    public String getName() {
-        return name;
+    public String getCelebrityName() {
+        return celebrityName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCelebrityName(String celebrityName) {
+        this.celebrityName = celebrityName;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
     }
 
     public String getCategory() {
@@ -29,13 +37,5 @@ public class MovieCelebrityDto {
 
     public void setCharacters(String characters) {
         this.characters = characters;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 }

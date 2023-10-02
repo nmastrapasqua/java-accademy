@@ -16,8 +16,8 @@ public class MovieCelebrityMapper {
         MovieCelebrityDto dto = new MovieCelebrityDto();
         dto.setCategory(entity.getCategory());
         dto.setCharacters(normalizeCharacters(entity.getCharacters()));
-        dto.setTitle(entity.getMovie().getTitle());
-        dto.setName(entity.getCelebrity().getPrimaryName());
+        dto.setMovieTitle(entity.getMovie().getTitle());
+        dto.setCelebrityName(entity.getCelebrity().getPrimaryName());
         return dto;
     }
 

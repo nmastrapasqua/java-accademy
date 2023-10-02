@@ -61,7 +61,7 @@ public class MovieController {
         return opt.get();
     }
 
-    @PutMapping("{movieId}/celebrity/{celebrityId}")
+    @PutMapping("{movieId}/celebrities/{celebrityId}")
     public MovieCelebrityDto associateCelebrity(
             @PathVariable String movieId,
             @PathVariable String celebrityId,
