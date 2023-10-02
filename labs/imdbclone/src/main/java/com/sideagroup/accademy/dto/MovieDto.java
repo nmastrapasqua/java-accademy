@@ -6,11 +6,9 @@ import java.util.List;
 public class MovieDto {
     private String id;
     private String title;
-    private int year;
-    private int runningTime;
-
+    private Integer year;
+    private Integer runningTime;
     private String genres;
-
     private List<MovieCelebrityDto> cast = new ArrayList<>();
 
     public String getId() {
@@ -29,19 +27,19 @@ public class MovieDto {
         this.title = title;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public int getRunningTime() {
+    public Integer getRunningTime() {
         return runningTime;
     }
 
-    public void setRunningTime(int runningTime) {
+    public void setRunningTime(Integer runningTime) {
         this.runningTime = runningTime;
     }
 

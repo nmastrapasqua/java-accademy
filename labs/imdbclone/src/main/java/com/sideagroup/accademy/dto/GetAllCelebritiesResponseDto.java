@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GetAllCelebritiesResponseDto {
     private PaginationDto pagination = new PaginationDto();
-    List<CelebrityDto> celebrities = new ArrayList<>();
+    private List<CelebrityDto> celebrities = new ArrayList<>();
 
     public PaginationDto getPagination() {
         return pagination;

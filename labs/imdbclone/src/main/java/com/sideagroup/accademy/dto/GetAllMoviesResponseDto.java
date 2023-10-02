@@ -6,7 +6,7 @@ import java.util.List;
 public class GetAllMoviesResponseDto {
 
     private PaginationDto pagination = new PaginationDto();
-    List<MovieDto> movies = new ArrayList<>();
+    private List<MovieDto> movies = new ArrayList<>();
 
     public PaginationDto getPagination() {
         return pagination;

@@ -2,19 +2,14 @@ package com.sideagroup.accademy.mapper;
 
 import com.sideagroup.accademy.dto.CelebrityDto;
 import com.sideagroup.accademy.dto.GetAllCelebritiesResponseDto;
-import com.sideagroup.accademy.dto.MovieCelebrityDto;
-import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.model.Celebrity;
-import com.sideagroup.accademy.model.Movie;
-import com.sideagroup.accademy.model.MovieCelebrity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
 
 @Component
-public class CelebrityMapper extends BaseMapper{
+public class CelebrityMapper {
 
     @Autowired
     private MovieCelebrityMapper movieCelebrityMapper;

@@ -6,9 +6,9 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class MovieCelebrityKey {
 
-    @Column(name = "nconst", length = 200)
+    @Column(length = 200)
     private String celebrityId;
-    @Column(name = "tconst", length = 200)
+    @Column(length = 200)
     private String movieId;
 
     public String getCelebrityId() {

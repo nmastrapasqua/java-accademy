@@ -1,11 +1,16 @@
 package com.sideagroup.accademy.mapper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sideagroup.accademy.dto.MovieCelebrityDto;
 import com.sideagroup.accademy.model.MovieCelebrity;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Component
-public class MovieCelebrityMapper extends BaseMapper{
+public class MovieCelebrityMapper {
 
     public MovieCelebrityDto toDto(MovieCelebrity entity) {
         MovieCelebrityDto dto = new MovieCelebrityDto();
@@ -14,5 +19,20 @@ public class MovieCelebrityMapper extends BaseMapper{
         dto.setTitle(entity.getMovie().getTitle());
         dto.setName(entity.getCelebrity().getPrimaryName());
         return dto;
+    }
+
+    protected String normalizeCharacters(String characters) {
+        if (characters == null)
+            return null;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            List<String> characterList =
+                    Arrays.asList(mapper.readValue(characters, String[].class));
+            return characterList.toString()
+                    .replace("[", "")
+                    .replace("]", "");
+        } catch (JsonProcessingException e) {
+            return characters;
+        }
     }
 }
