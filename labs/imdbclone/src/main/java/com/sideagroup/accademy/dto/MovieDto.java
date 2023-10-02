@@ -1,8 +1,5 @@
 package com.sideagroup.accademy.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MovieDto {
     private String id;
     private String title;
