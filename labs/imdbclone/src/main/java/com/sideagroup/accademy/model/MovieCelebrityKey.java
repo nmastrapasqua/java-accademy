@@ -11,6 +11,15 @@ public class MovieCelebrityKey {
     @Column(length = 200)
     private String movieId;
 
+    public MovieCelebrityKey() {
+        this(null, null);
+    }
+
+    public MovieCelebrityKey(String celebrityId, String movieId) {
+        this.celebrityId = celebrityId;
+        this.movieId = movieId;
+    }
+
     public String getCelebrityId() {
         return celebrityId;
     }

@@ -5,8 +5,13 @@ import java.util.List;
 
 public class GetAllMoviesResponseDto {
 
-    private PaginationDto pagination = new PaginationDto();
-    private List<MovieDto> movies = new ArrayList<>();
+    private PaginationDto pagination;
+    private List<MovieDto> movies;
+
+    public GetAllMoviesResponseDto() {
+        pagination = new PaginationDto();
+        movies = new ArrayList<>();
+    }
 
     public PaginationDto getPagination() {
         return pagination;

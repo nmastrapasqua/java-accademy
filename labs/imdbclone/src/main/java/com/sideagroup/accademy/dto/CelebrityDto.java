@@ -8,8 +8,11 @@ public class CelebrityDto {
     private String name;
     private Integer birthYear;
     private Integer deathYear;
+    private List<MovieCelebrityDto> movies;
 
-    private List<MovieCelebrityDto> movies = new ArrayList<>();
+    public CelebrityDto() {
+        movies = new ArrayList<>();
+    }
 
     public String getId() {
         return id;

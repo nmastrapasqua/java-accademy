@@ -94,16 +94,12 @@ public class MovieDbService implements MovieService {
         if (celebrity.isEmpty())
             throw new GenericServiceException("Celebrity with id " + celebrityId + " does not exists");
 
-        MovieCelebrityKey key = new MovieCelebrityKey();
-        key.setCelebrityId(celebrityId);
-        key.setMovieId(movieId);
-
+        MovieCelebrityKey key = new MovieCelebrityKey(celebrityId, movieId);
         Optional<MovieCelebrity> rel = movieCelebrityRepository.findById(key);
         if (!rel.isEmpty())
             throw new GenericServiceException("Association between " + movieId + " and " + celebrityId + " already exists");
 
-        MovieCelebrity entity = new MovieCelebrity();
-        entity.setId(key);
+        MovieCelebrity entity = new MovieCelebrity(key);
         entity.setCelebrity(celebrity.get());
         entity.setMovie(movie.get());
         entity.setCategory(body.getCategory());

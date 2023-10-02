@@ -9,7 +9,11 @@ public class MovieDto {
     private Integer year;
     private Integer runningTime;
     private String genres;
-    private List<MovieCelebrityDto> cast = new ArrayList<>();
+    private List<MovieCelebrityDto> cast;
+
+    public MovieDto() {
+        cast = new ArrayList<>();
+    }
 
     public String getId() {
         return id;

@@ -23,6 +23,14 @@ public class MovieCelebrity {
     @Column(length = 1000)
     private String characters;
 
+    public MovieCelebrity() {
+        this(null);
+    }
+
+    public MovieCelebrity(MovieCelebrityKey id) {
+        this.id = id;
+    }
+
     public MovieCelebrityKey getId() {
         return id;
     }
