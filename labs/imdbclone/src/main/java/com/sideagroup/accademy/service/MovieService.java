@@ -7,11 +7,11 @@ public interface MovieService {
 
     public Iterable<MovieDto> getAll();
 
-    public Optional<MovieDto> getById(long id);
+    public Optional<MovieDto> getById(String id);
 
     public MovieDto create(MovieDto movie);
 
-    public Optional<MovieDto> update(long id, MovieDto movie);
+    public Optional<MovieDto> update(String id, MovieDto movie);
 
-    public boolean deleteById(long id);
+    public boolean deleteById(String id);
 }

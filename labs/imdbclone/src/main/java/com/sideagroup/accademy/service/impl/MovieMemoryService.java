@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service("mainMovieService")
 public class MovieMemoryService implements MovieService {
     private List<MovieDto> movies = new ArrayList<>();
-    private long lastId = 0;
 
     @Override
     public Iterable<MovieDto> getAll() {
@@ -20,22 +19,20 @@ public class MovieMemoryService implements MovieService {
     }
 
     @Override
-    public Optional<MovieDto> getById(long id) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId() == id).findFirst();
+    public Optional<MovieDto> getById(String id) {
+        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
         return opt;
     }
 
     @Override
     public MovieDto create(MovieDto movie) {
-        lastId++;
-        movie.setId(lastId);
         movies.add(movie);
         return movie;
     }
 
     @Override
-    public Optional<MovieDto> update(long id, MovieDto movie) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId() == id).findFirst();
+    public Optional<MovieDto> update(String id, MovieDto movie) {
+        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
 
         if (opt.isEmpty())
             return opt;
@@ -49,8 +46,8 @@ public class MovieMemoryService implements MovieService {
     }
 
     @Override
-    public boolean deleteById(long id) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId() == id).findFirst();
+    public boolean deleteById(String id) {
+        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
 
         if (opt.isEmpty())
             return false;

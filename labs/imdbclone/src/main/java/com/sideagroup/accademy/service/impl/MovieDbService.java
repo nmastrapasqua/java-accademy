@@ -17,7 +17,7 @@ public class MovieDbService implements MovieService {
     }
 
     @Override
-    public Optional<MovieDto> getById(long id) {
+    public Optional<MovieDto> getById(String id) {
         return Optional.empty();
     }
 
@@ -27,12 +27,12 @@ public class MovieDbService implements MovieService {
     }
 
     @Override
-    public Optional<MovieDto> update(long id, MovieDto movie) {
+    public Optional<MovieDto> update(String id, MovieDto movie) {
         return Optional.empty();
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteById(String id) {
         return false;
     }
 }
