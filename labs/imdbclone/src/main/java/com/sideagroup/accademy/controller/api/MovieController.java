@@ -13,10 +13,9 @@ import java.util.Optional;
 @RequestMapping("/api/v1/movies")
 public class MovieController {
 
-    // Per i più esperti, non badate a queste variabili;
+    // Per i più esperti, non badate a questa variabile;
     // Il controller evolverà durante il corso.
     private List<MovieDto> movies = new ArrayList<>();
-    private long lasdtId = 0;
 
     @GetMapping
     public Iterable<MovieDto> getAll() {
@@ -24,8 +23,8 @@ public class MovieController {
     }
 
     @GetMapping("{id}")
-    public MovieDto getById(@PathVariable long id) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId() == id).findFirst();
+    public MovieDto getById(@PathVariable String id) {
+        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
 
         if (opt.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "item not found");
@@ -36,15 +35,13 @@ public class MovieController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MovieDto create(@RequestBody MovieDto movie) {
-        lasdtId++;
-        movie.setId(lasdtId);
         movies.add(movie);
         return movie;
     }
 
     @PutMapping("{id}")
-    public MovieDto update(@PathVariable long id, @RequestBody MovieDto movie) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId() == id).findFirst();
+    public MovieDto update(@PathVariable String id, @RequestBody MovieDto movie) {
+        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
 
         if (opt.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "item not found");
@@ -59,8 +56,8 @@ public class MovieController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable long id) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId() == id).findFirst();
+    public void deleteById(@PathVariable String id) {
+        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
 
         if (!opt.isEmpty())
             movies.remove(opt.get());
