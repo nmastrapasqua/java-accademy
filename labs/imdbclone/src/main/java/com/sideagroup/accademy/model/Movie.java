@@ -15,6 +15,7 @@ public class Movie {
     private String id;
     @Column(length = 1000, nullable = false)
     private String title;
+    @Column(name = "startYear")
     private Integer year;
     private Integer runtimeMinutes;
     @Column(length = 1000)
