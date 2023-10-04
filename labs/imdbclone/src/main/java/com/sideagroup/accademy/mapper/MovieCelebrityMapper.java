@@ -18,6 +18,8 @@ public class MovieCelebrityMapper {
         dto.setCharacters(normalizeCharacters(entity.getCharacters()));
         dto.setMovieTitle(entity.getMovie().getTitle());
         dto.setCelebrityName(entity.getCelebrity().getPrimaryName());
+        dto.setCelebrityId(entity.getId().getCelebrityId());
+        dto.setMovieId(entity.getId().getMovieId());
         return dto;
     }
 

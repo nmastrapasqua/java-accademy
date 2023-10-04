@@ -3,9 +3,12 @@ package com.sideagroup.accademy.dto;
 public class MovieCelebrityDto {
 
     private String celebrityName;
+    private String celebrityId;
     private String movieTitle;
+    private String movieId;
     private String category;
     private String characters;
+
 
     public String getCelebrityName() {
         return celebrityName;
@@ -38,4 +41,21 @@ public class MovieCelebrityDto {
     public void setCharacters(String characters) {
         this.characters = characters;
     }
+
+    public String getCelebrityId() {
+        return celebrityId;
+    }
+
+    public void setCelebrityId(String celebrityId) {
+        this.celebrityId = celebrityId;
+    }
+
+    public String getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
+    }
 }
+
