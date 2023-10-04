@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface MovieService {
 
-    public GetAllMoviesResponseDto getAll(int page, int size, String orderBy);
+    public GetAllMoviesResponseDto getAll(int page, int size, String orderBy, String title);
 
     public Optional<MovieDto> getById(String id);
 

@@ -45,10 +45,11 @@ public class MovieDbService implements MovieService {
     private MovieCelebrityMapper movieCelebrityMapper;
 
     @Override
-    public GetAllMoviesResponseDto getAll(int page, int size, String orderBy) {
+    public GetAllMoviesResponseDto getAll(int page, int size, String orderBy, String title) {
         validateInput(orderBy);
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
-        Page<Movie> movies = repo.findAll(pageable);
+        Page<Movie> movies = title == null ? repo.findAll(pageable) :
+                repo.findByTitle("%" + title + "%", pageable);
         return mapper.toDto(movies, size);
     }
 

@@ -23,9 +23,10 @@ public class MovieController {
     public GetAllMoviesResponseDto getAll(
             @RequestParam(name="page", required=false, defaultValue="0") int page,
             @RequestParam(name="size", required=false, defaultValue="20") int size,
-            @RequestParam(name="order_by", required=false, defaultValue="id") String orderBy) {
+            @RequestParam(name="order_by", required=false, defaultValue="id") String orderBy,
+            @RequestParam(name="title", required=false) String title) {
         try {
-            return movieServices.getAll(page, size, orderBy);
+            return movieServices.getAll(page, size, orderBy, title);
         } catch(GenericServiceException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
