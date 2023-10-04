@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CelebrityService {
 
-    public GetAllCelebritiesResponseDto getAll(int page, int size, String orderBy);
+    public GetAllCelebritiesResponseDto getAll(int page, int size, String orderBy, String name);
 
     public Optional<CelebrityDto> getById(String id);
 

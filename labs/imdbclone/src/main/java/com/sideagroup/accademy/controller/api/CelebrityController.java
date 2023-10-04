@@ -21,9 +21,10 @@ public class CelebrityController {
     public GetAllCelebritiesResponseDto getAll(
             @RequestParam(name="page", required=false, defaultValue="0") int page,
             @RequestParam(name="size", required=false, defaultValue="20") int size,
-            @RequestParam(name="order_by", required=false, defaultValue="id") String orderBy) {
+            @RequestParam(name="order_by", required=false, defaultValue="id") String orderBy,
+            @RequestParam(name="name", required=false) String name) {
         try {
-            return service.getAll(page, size, orderBy);
+            return service.getAll(page, size, orderBy, name);
         } catch(GenericServiceException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

@@ -28,10 +28,11 @@ public class CelebrityDbService implements CelebrityService {
     private CelebrityMapper mapper;
 
     @Override
-    public GetAllCelebritiesResponseDto getAll(int page, int size, String orderBy) {
+    public GetAllCelebritiesResponseDto getAll(int page, int size, String orderBy, String name) {
         validateInput(orderBy);
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
-        Page<Celebrity> celebrities = repo.findAll(pageable);
+        Page<Celebrity> celebrities = name == null ? repo.findAll(pageable) :
+                repo.findByPrimaryNameIgnoreCaseContaining(name, pageable);
         return mapper.toDto(celebrities, size);
     }
 
