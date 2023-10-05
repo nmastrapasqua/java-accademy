@@ -4,6 +4,7 @@ import com.sideagroup.accademy.dto.CelebrityDto;
 import com.sideagroup.accademy.dto.GetAllCelebritiesResponseDto;
 import com.sideagroup.accademy.exception.GenericServiceException;
 import com.sideagroup.accademy.service.CelebrityService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/celebrities")
+@Tag(name = "Celebrities", description = "Celebrities management APIs")
 public class CelebrityController {
 
     @Autowired

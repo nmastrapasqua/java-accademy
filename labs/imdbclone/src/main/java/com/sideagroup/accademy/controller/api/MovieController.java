@@ -5,6 +5,11 @@ import com.sideagroup.accademy.dto.MovieCelebrityDto;
 import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.exception.GenericServiceException;
 import com.sideagroup.accademy.service.MovieService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/movies")
+@Tag(name = "Movies", description = "Movies management APIs")
 public class MovieController {
 
     @Autowired
@@ -32,8 +38,15 @@ public class MovieController {
         }
     }
 
+    @Operation(summary = "Get a movie by id", description = "Returns a movie as per the id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+            @ApiResponse(responseCode = "404", description = "Not found - The movie was not found")
+    })
     @GetMapping("{id}")
-    public MovieDto getById(@PathVariable String id) {
+    public MovieDto getById(
+            @PathVariable("id")
+            @Parameter(description = "Movie id", example = "tt0120804") String id) {
         Optional<MovieDto> opt = movieServices.getById(id);
 
         if (opt.isEmpty())
