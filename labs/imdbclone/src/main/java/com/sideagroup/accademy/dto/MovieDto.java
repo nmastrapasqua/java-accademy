@@ -12,12 +12,15 @@ import java.util.List;
 public class MovieDto {
     @Schema(description = "Movie Id", example = "tt0120804", required = true)
     private String id;
+    @Schema(description = "Movie title", required = true)
     private String title;
+    @Schema(description = "Movie year", required = true)
     private Integer year;
     @Schema(description = "Running time in minutes", example = "178", required = true)
     private Integer runningTime;
     @Schema(description = "Comma separated genres of a movie", example = "Action,Adventure", required = true)
     private String genres;
+    @Schema(description = "Movie cast. Not used in POST and PUT", required = false)
     private List<MovieCelebrityDto> cast;
 
     public MovieDto() {
