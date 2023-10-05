@@ -2,8 +2,12 @@ package com.sideagroup.accademy.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
 @Embeddable
+@Getter
+@Setter
 public class MovieCelebrityKey {
 
     @Column(length = 200)
@@ -20,19 +24,4 @@ public class MovieCelebrityKey {
         this.movieId = movieId;
     }
 
-    public String getCelebrityId() {
-        return celebrityId;
-    }
-
-    public void setCelebrityId(String celebrityId) {
-        this.celebrityId = celebrityId;
-    }
-
-    public String getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
-    }
 }

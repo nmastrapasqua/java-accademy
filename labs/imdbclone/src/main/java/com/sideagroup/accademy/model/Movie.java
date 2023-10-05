@@ -1,6 +1,8 @@
 package com.sideagroup.accademy.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -8,6 +10,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "movie")
+@Getter
+@Setter
 public class Movie {
 
     @Id
@@ -25,51 +29,4 @@ public class Movie {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<MovieCelebrity> names;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public Integer getRuntimeMinutes() {
-        return runtimeMinutes;
-    }
-
-    public void setRuntimeMinutes(Integer runtimeMinutes) {
-        this.runtimeMinutes = runtimeMinutes;
-    }
-
-    public String getGenres() {
-        return genres;
-    }
-
-    public void setGenres(String genres) {
-        this.genres = genres;
-    }
-
-    public Set<MovieCelebrity> getNames() {
-        return names;
-    }
-
-    public void setNames(Set<MovieCelebrity> names) {
-        this.names = names;
-    }
 }
