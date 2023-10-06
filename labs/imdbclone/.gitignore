@@ -33,3 +33,4 @@ build/
 .vscode/
 
 create.sql
+/src/main/resources/delete-me.json
