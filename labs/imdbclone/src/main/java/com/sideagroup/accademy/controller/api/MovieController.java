@@ -25,12 +25,17 @@ public class MovieController {
     private MovieService movieServices ;
 
 
+    @Operation(summary = "Retrieves all movies", description = "Retrieves all movies in paginated way")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+            @ApiResponse(responseCode = "400", description = "One or more parameters are invalid")
+    })
     @GetMapping
     public GetAllMoviesResponseDto getAll(
             @RequestParam(name="page", required=false, defaultValue="0")
-            @Parameter(description = "Page number for pagination", example = "1") int page,
+            @Parameter(description = "Page number", example = "0") int page,
             @RequestParam(name="size", required=false, defaultValue="20")
-            @Parameter(description = "Page size for pagination", example = "30") int size,
+            @Parameter(description = "Page size", example = "30") int size,
             @RequestParam(name="order_by", required=false, defaultValue="id")
             @Parameter(description = "Field used for sorting", example = "id") String orderBy,
             @RequestParam(name="title", required=false)
@@ -43,7 +48,7 @@ public class MovieController {
         }
     }
 
-    @Operation(summary = "Get a movie by id", description = "Returns a movie as per the id")
+    @Operation(summary = "Gets a movie by id", description = "Returns a movie as per the id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
             @ApiResponse(responseCode = "404", description = "Not found - The movie was not found")
@@ -60,6 +65,11 @@ public class MovieController {
         return opt.get();
     }
 
+    @Operation(summary = "Creates a new movie", description = "Creates a new movie")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Successfully created"),
+            @ApiResponse(responseCode = "404", description = "A movie with same id already exists")
+    })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MovieDto create(@RequestBody MovieDto movie) {
@@ -71,7 +81,7 @@ public class MovieController {
     }
 
     @PutMapping("{id}")
-    public MovieDto update(@PathVariable String id, @RequestBody MovieDto movie) {
+    public MovieDto update(@PathVariable("id") String id, @RequestBody MovieDto movie) {
         Optional<MovieDto> opt = movieServices.update(id, movie);
 
         if (opt.isEmpty())
