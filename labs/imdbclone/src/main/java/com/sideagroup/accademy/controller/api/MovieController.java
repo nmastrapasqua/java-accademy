@@ -1,5 +1,6 @@
 package com.sideagroup.accademy.controller.api;
 
+import com.sideagroup.accademy.dto.DefaultErrorDto;
 import com.sideagroup.accademy.dto.GetAllMoviesResponseDto;
 import com.sideagroup.accademy.dto.MovieCelebrityDto;
 import com.sideagroup.accademy.dto.MovieDto;
@@ -7,6 +8,8 @@ import com.sideagroup.accademy.exception.GenericServiceException;
 import com.sideagroup.accademy.service.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,10 +28,14 @@ public class MovieController {
     private MovieService movieServices ;
 
 
-    @Operation(summary = "Retrieves all movies", description = "Retrieves all movies in paginated way")
+    @Operation(summary = "Retrieves all movies without cast",
+            description = "Retrieves all movies without cast in paginated way")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
-            @ApiResponse(responseCode = "400", description = "One or more parameters are invalid")
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "One or more parameters are invalid",
+                    content = @Content(schema = @Schema(implementation = DefaultErrorDto.class)))
     })
     @GetMapping
     public GetAllMoviesResponseDto getAll(
@@ -48,10 +55,13 @@ public class MovieController {
         }
     }
 
-    @Operation(summary = "Gets a movie by id", description = "Returns a movie as per the id")
+    @Operation(summary = "Gets a movie with cast by id", description = "Returns a movie with cast as per the id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Not found - The movie was not found")
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not found - The movie was not found",
+                    content = @Content(schema = @Schema(implementation = DefaultErrorDto.class)))
     })
     @GetMapping("{id}")
     public MovieDto getById(
@@ -68,7 +78,10 @@ public class MovieController {
     @Operation(summary = "Creates a new movie", description = "Creates a new movie")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successfully created"),
-            @ApiResponse(responseCode = "404", description = "A movie with same id already exists")
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "A movie with same id already exists",
+                    content = @Content(schema = @Schema(implementation = DefaultErrorDto.class)))
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -83,7 +96,10 @@ public class MovieController {
     @Operation(summary = "Updates a movie", description = "Updates the movie with the given id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully updated"),
-            @ApiResponse(responseCode = "404", description = "Not found - The movie was not found")
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not found - The movie was not found",
+                    content = @Content(schema = @Schema(implementation = DefaultErrorDto.class)))
     })
     @PutMapping("{id}")
     public MovieDto update(@PathVariable("id") String id, @RequestBody MovieDto movie) {
@@ -99,8 +115,10 @@ public class MovieController {
             description = "Associate the celebrity 'celebrityId' with the movie 'movieId'")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully updated"),
-            @ApiResponse(responseCode = "400",
-                    description = "The movie or the celebrity does not exist. The association already exists")
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "The movie or the celebrity does not exist. The association already exists",
+                    content = @Content(schema = @Schema(implementation = DefaultErrorDto.class)))
     })
     @PutMapping("{movieId}/celebrities/{celebrityId}")
     public MovieCelebrityDto associateCelebrity(
