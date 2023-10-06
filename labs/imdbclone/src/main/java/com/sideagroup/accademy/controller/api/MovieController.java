@@ -95,10 +95,17 @@ public class MovieController {
         return opt.get();
     }
 
+    @Operation(summary = "Associate a celebrity with a movie",
+            description = "Associate the celebrity 'celebrityId' with the movie 'movieId'")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully updated"),
+            @ApiResponse(responseCode = "400",
+                    description = "The movie or the celebrity does not exist. The association already exists")
+    })
     @PutMapping("{movieId}/celebrities/{celebrityId}")
     public MovieCelebrityDto associateCelebrity(
-            @PathVariable String movieId,
-            @PathVariable String celebrityId,
+            @PathVariable("movieId") String movieId,
+            @PathVariable("celebrityId") String celebrityId,
             @RequestBody MovieCelebrityDto body) {
         try {
             return movieServices.associateCelebrity(movieId, celebrityId, body);
