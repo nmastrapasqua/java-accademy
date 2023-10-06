@@ -80,6 +80,11 @@ public class MovieController {
         }
     }
 
+    @Operation(summary = "Updates a movie", description = "Updates the movie with the given id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully updated"),
+            @ApiResponse(responseCode = "404", description = "Not found - The movie was not found")
+    })
     @PutMapping("{id}")
     public MovieDto update(@PathVariable("id") String id, @RequestBody MovieDto movie) {
         Optional<MovieDto> opt = movieServices.update(id, movie);
@@ -102,9 +107,13 @@ public class MovieController {
         }
     }
 
+    @Operation(summary = "Deletes a movie", description = "Deletes the movie with the given id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Successfully deleted")
+    })
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable String id) {
+    public void deleteById(@PathVariable("id") String id) {
         movieServices.deleteById(id);
     }
 
