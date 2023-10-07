@@ -22,9 +22,13 @@ public class MovieDto {
     private String genres;
     @Schema(description = "Movie cast. Not used in POST and PUT", required = false)
     private List<MovieCelebrityDto> cast;
+    @Schema(description = "Movie rating. Not used in POST and PUT", required = false)
     private RatingDto rating;
+    @Schema(description = "Movie countries. Not used in POST and PUT", required = false)
+    private List<CountryDto> country;
 
     public MovieDto() {
+        country = new ArrayList<>();
         cast = new ArrayList<>();
     }
 
