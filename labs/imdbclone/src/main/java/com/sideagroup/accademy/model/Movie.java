@@ -29,4 +29,10 @@ public class Movie {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<MovieCelebrity> names;
 
+    @OneToMany(mappedBy = "movie")
+    private Set<Country> countries;
+
+    @OneToOne(mappedBy = "movie")
+    private Rating rating;
+
 }
