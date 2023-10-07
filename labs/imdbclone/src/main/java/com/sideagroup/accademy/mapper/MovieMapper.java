@@ -13,6 +13,9 @@ public class MovieMapper {
     @Autowired
     private MovieCelebrityMapper movieCelebrityMapper;
 
+    @Autowired
+    private RatingMapper ratingMapper;
+
     public MovieDto toDto(Movie entity, boolean withCast) {
         MovieDto dto = new MovieDto();
         dto.setTitle(entity.getTitle());
@@ -20,6 +23,7 @@ public class MovieMapper {
         dto.setYear(entity.getYear());
         dto.setRunningTime(entity.getRuntimeMinutes());
         dto.setGenres(entity.getGenres());
+        dto.setRating(ratingMapper.toDto(entity.getRating()));
 
         if (!withCast)
             return dto;
