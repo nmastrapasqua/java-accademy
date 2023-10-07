@@ -25,6 +25,12 @@ public class Movie {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<MovieCelebrity> names;
 
+    @OneToMany(mappedBy = "movie")
+    private Set<Country> countries;
+
+    @OneToOne(mappedBy = "movie")
+    private Rating rating;
+
     public String getId() {
         return id;
     }
@@ -71,5 +77,21 @@ public class Movie {
 
     public void setNames(Set<MovieCelebrity> names) {
         this.names = names;
+    }
+
+    public Set<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(Set<Country> countries) {
+        this.countries = countries;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
     }
 }
