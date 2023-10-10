@@ -24,7 +24,8 @@ public class MovieController {
 
     @GetMapping("{id}")
     public MovieDto getById(@PathVariable String id) {
-        Optional<MovieDto> opt = movies.stream().filter(item->item.getId().equals(id)).findFirst();
+        Optional<MovieDto> opt =
+                movies.stream().filter(item->item.getId().equals(id)).findFirst();
 
         if (opt.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "item not found");
@@ -50,6 +51,7 @@ public class MovieController {
         myMovie.setTitle(movie.getTitle());
         myMovie.setYear(movie.getYear());
         myMovie.setRunningTime(movie.getRunningTime());
+        myMovie.setGenres(movie.getGenres());
 
         return myMovie;
     }

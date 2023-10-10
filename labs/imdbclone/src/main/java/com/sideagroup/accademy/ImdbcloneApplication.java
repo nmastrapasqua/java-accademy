@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ImdbcloneApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ImdbcloneApplication.class, args);
 	}
 
