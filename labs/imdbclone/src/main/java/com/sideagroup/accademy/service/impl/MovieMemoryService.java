@@ -32,6 +32,7 @@ public class MovieMemoryService {
         myMovie.setTitle(movie.getTitle());
         myMovie.setYear(movie.getYear());
         myMovie.setRunningTime(movie.getRunningTime());
+        myMovie.setGenres(movie.getGenres());
 
         return opt;
     }
