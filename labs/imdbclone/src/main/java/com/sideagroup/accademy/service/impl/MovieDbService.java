@@ -46,6 +46,7 @@ public class MovieDbService implements MovieService {
 
     @Override
     public GetAllMoviesResponseDto getAll(int page, int size, String orderBy) {
+        logger.info("getAll called");
         validateInput(orderBy);
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
         Page<Movie> movies = repo.findAll(pageable);
@@ -54,6 +55,7 @@ public class MovieDbService implements MovieService {
 
     @Override
     public Optional<MovieDto> getById(String id) {
+        logger.info("getById called");
         Optional<Movie> result = repo.findById(id);
         if (!result.isEmpty()) {
             MovieDto dto = mapper.toDto(result.get(), true);
@@ -65,6 +67,7 @@ public class MovieDbService implements MovieService {
 
     @Override
     public MovieDto create(MovieDto movie) {
+        logger.info("create called");
         Optional<Movie> opt = repo.findById(movie.getId());
         if (!opt.isEmpty())
             throw new GenericServiceException("Movie with id " + movie.getId() + " already exists");
@@ -74,6 +77,7 @@ public class MovieDbService implements MovieService {
 
     @Override
     public Optional<MovieDto> update(String id, MovieDto movie) {
+        logger.info("update called");
         Optional<Movie> opt = repo.findById(id);
         if (opt.isEmpty())
             return Optional.empty();
@@ -110,6 +114,7 @@ public class MovieDbService implements MovieService {
 
     @Override
     public boolean deleteById(String id) {
+        logger.info("deleteById called");
         repo.deleteById(id);
         return true;
     }
