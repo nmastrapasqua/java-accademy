@@ -10,9 +10,12 @@ public class MovieDto {
     private Integer runningTime;
     private String genres;
     private List<MovieCelebrityDto> cast;
+    private RatingDto rating;
+    private List<CountryDto> country;
 
     public MovieDto() {
         cast = new ArrayList<>();
+        country = new ArrayList<>();
     }
 
     public String getId() {
@@ -61,5 +64,21 @@ public class MovieDto {
 
     public void setCast(List<MovieCelebrityDto> cast) {
         this.cast = cast;
+    }
+
+    public RatingDto getRating() {
+        return rating;
+    }
+
+    public void setRating(RatingDto rating) {
+        this.rating = rating;
+    }
+
+    public List<CountryDto> getCountry() {
+        return country;
+    }
+
+    public void setCountry(List<CountryDto> country) {
+        this.country = country;
     }
 }

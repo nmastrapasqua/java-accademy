@@ -13,18 +13,26 @@ public class MovieMapper {
     @Autowired
     private MovieCelebrityMapper movieCelebrityMapper;
 
-    public MovieDto toDto(Movie entity, boolean withCast) {
+    @Autowired
+    private CountryMapper countryMapper;
+
+    @Autowired
+    private RatingMapper ratingMapper;
+
+    public MovieDto toDto(Movie entity, boolean withCast, boolean withCountry) {
         MovieDto dto = new MovieDto();
         dto.setTitle(entity.getTitle());
         dto.setId(entity.getId());
         dto.setYear(entity.getYear());
         dto.setRunningTime(entity.getRuntimeMinutes());
         dto.setGenres(entity.getGenres());
+        dto.setRating(ratingMapper.toDto(entity.getRating()));
 
-        if (!withCast)
-            return dto;
+        if (withCast)
+            dto.getCast().addAll(entity.getNames().stream().map(item -> movieCelebrityMapper.toDto(item)).toList());
 
-        dto.getCast().addAll(entity.getNames().stream().map(item -> movieCelebrityMapper.toDto(item)).toList());
+        if (withCountry)
+            dto.getCountry().addAll( entity.getCountries().stream().map(item->countryMapper.toDto(item)).toList() );
 
         return dto;
     }
@@ -35,7 +43,7 @@ public class MovieMapper {
         dto.getPagination().setTotalElements(movies.getTotalElements());
         dto.getPagination().setTotalPages(movies.getTotalPages());
         dto.getPagination().setPageSize(size);
-        dto.getMovies().addAll(movies.getContent().stream().map(item -> toDto(item, false)).toList());
+        dto.getMovies().addAll(movies.getContent().stream().map(item -> toDto(item, false, false)).toList());
         return dto;
     }
 

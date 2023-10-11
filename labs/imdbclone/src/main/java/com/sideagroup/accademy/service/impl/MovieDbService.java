@@ -57,7 +57,7 @@ public class MovieDbService implements MovieService {
     public Optional<MovieDto> getById(String id) {
         Optional<Movie> result = repo.findById(id);
         if (!result.isEmpty()) {
-            MovieDto dto = mapper.toDto(result.get(), true);
+            MovieDto dto = mapper.toDto(result.get(), true, true);
             return Optional.of(dto);
         }
 
@@ -70,7 +70,7 @@ public class MovieDbService implements MovieService {
         if (!opt.isEmpty())
             throw new GenericServiceException("Movie with id " + movie.getId() + " already exists");
         Movie entity = repo.save(mapper.toEntity(movie));
-        return mapper.toDto(entity, false);
+        return mapper.toDto(entity, false, false);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class MovieDbService implements MovieService {
         mapper.updateFromDto(entity, movie);
         entity = repo.save(entity);
 
-        return Optional.of(mapper.toDto(entity, false));
+        return Optional.of(mapper.toDto(entity, false, false));
     }
 
     @Override
