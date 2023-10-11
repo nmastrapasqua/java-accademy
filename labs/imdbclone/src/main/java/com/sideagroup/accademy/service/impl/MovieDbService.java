@@ -22,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 @Service
@@ -121,8 +122,8 @@ public class MovieDbService implements MovieService {
 
     private void validateInput(String orderBy) {
         if (!"id".equals(orderBy) &&
-            !"title".equals(orderBy) &&
-            !"year".equals(orderBy)) {
+                !"title".equals(orderBy) &&
+                !"year".equals(orderBy)) {
             throw new GenericServiceException("Invalid Sort field '" + orderBy + "'. Valid values are: [id, title, year]");
         }
     }
