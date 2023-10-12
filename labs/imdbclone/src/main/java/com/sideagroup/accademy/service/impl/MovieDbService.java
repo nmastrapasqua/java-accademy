@@ -13,6 +13,7 @@ import com.sideagroup.accademy.repository.MovieCelebrityRepository;
 import com.sideagroup.accademy.repository.MovieRepository;
 import com.sideagroup.accademy.repository.RatingRepository;
 import com.sideagroup.accademy.service.MovieService;
+import com.sideagroup.accademy.validator.MovieValidator;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,9 +51,13 @@ public class MovieDbService implements MovieService {
     @Autowired
     private RatingMapper ratingMapper;
 
+    @Autowired
+    private MovieValidator movieValidator;
+
     @Override
     public GetAllMoviesResponseDto getAll(int page, int size, String orderBy, String title) {
-        validateInput(orderBy);
+        logger.info("getAll called");
+        movieValidator.validateQueryParams(orderBy);
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
         Page<Movie> movies = title == null ? repo.findAll(pageable) :
                 repo.findByTitle("%" + title + "%", pageable);
@@ -61,6 +66,7 @@ public class MovieDbService implements MovieService {
 
     @Override
     public Optional<MovieDto> getById(String id) {
+        logger.info("getById called");
         Optional<Movie> result = repo.findById(id);
         if (!result.isEmpty()) {
             MovieDto dto = mapper.toDto(result.get(), true, true);
@@ -73,6 +79,8 @@ public class MovieDbService implements MovieService {
     @Override
     @Transactional
     public MovieDto create(MovieDto movie) {
+        logger.info("create called");
+        movieValidator.validateCreateMovieRequest(movie);
         Optional<Movie> opt = repo.findById(movie.getId());
         if (!opt.isEmpty())
             throw new GenericServiceException("Movie with id " + movie.getId() + " already exists");
@@ -90,6 +98,7 @@ public class MovieDbService implements MovieService {
 
     @Override
     public Optional<MovieDto> update(String id, MovieDto movie) {
+        logger.info("update called");
         Optional<Movie> opt = repo.findById(id);
         if (opt.isEmpty())
             return Optional.empty();
@@ -103,6 +112,7 @@ public class MovieDbService implements MovieService {
 
     @Override
     public MovieCelebrityDto associateCelebrity(String movieId, String celebrityId, MovieCelebrityDto body) {
+        logger.info("associateCelebrity called");
         Optional<Movie> movie = repo.findById(movieId);
         if (movie.isEmpty())
             throw new GenericServiceException("Movie with id " + movieId + " does not exists");
@@ -134,6 +144,7 @@ public class MovieDbService implements MovieService {
     @Override
     @Transactional
     public boolean deleteById(String id) {
+        logger.info("deleteById called");
         Optional<Movie> movie = repo.findById(id);
         if (movie.isEmpty())
             return false;
@@ -142,11 +153,4 @@ public class MovieDbService implements MovieService {
         return true;
     }
 
-    private void validateInput(String orderBy) {
-        if (!"id".equals(orderBy) &&
-            !"title".equals(orderBy) &&
-            !"year".equals(orderBy)) {
-            throw new GenericServiceException("Invalid Sort field '" + orderBy + "'. Valid values are: [id, title, year]");
-        }
-    }
 }

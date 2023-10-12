@@ -7,6 +7,7 @@ import com.sideagroup.accademy.mapper.CelebrityMapper;
 import com.sideagroup.accademy.model.Celebrity;
 import com.sideagroup.accademy.repository.CelebrityRepository;
 import com.sideagroup.accademy.service.CelebrityService;
+import com.sideagroup.accademy.validator.CelebrityValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,13 @@ public class CelebrityDbService implements CelebrityService {
     @Autowired
     private CelebrityMapper mapper;
 
+    @Autowired
+    private CelebrityValidator celebrityValidator;
+
     @Override
     public GetAllCelebritiesResponseDto getAll(int page, int size, String orderBy, String name) {
-        validateInput(orderBy);
+        logger.info("getAll called");
+        celebrityValidator.validateQueryParams(orderBy);
         Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
         Page<Celebrity> celebrities = name == null ? repo.findAll(pageable) :
                 repo.findByPrimaryNameIgnoreCaseContaining(name, pageable);
@@ -38,6 +43,7 @@ public class CelebrityDbService implements CelebrityService {
 
     @Override
     public Optional<CelebrityDto> getById(String id) {
+        logger.info("getById called");
         Optional<Celebrity> result = repo.findById(id);
         if (!result.isEmpty()) {
             CelebrityDto dto = mapper.toDto(result.get(), true);
@@ -49,6 +55,7 @@ public class CelebrityDbService implements CelebrityService {
 
     @Override
     public CelebrityDto create(CelebrityDto celebrity) {
+        logger.info("create called");
         Optional<Celebrity> opt = repo.findById(celebrity.getId());
         if (!opt.isEmpty())
             throw new GenericServiceException("Celebrity with id " + celebrity.getId() + " already exists");
@@ -58,6 +65,7 @@ public class CelebrityDbService implements CelebrityService {
 
     @Override
     public Optional<CelebrityDto> update(String id, CelebrityDto celebrity) {
+        logger.info("update called");
         Optional<Celebrity> opt = repo.findById(id);
         if (opt.isEmpty())
             return Optional.empty();
@@ -76,10 +84,4 @@ public class CelebrityDbService implements CelebrityService {
         return true;
     }
 
-    private void validateInput(String orderBy) {
-        if (!"id".equals(orderBy) &&
-                !"primaryName".equals(orderBy)) {
-            throw new GenericServiceException("Invalid Sort field '" + orderBy + "'. Valid values are: [id, primaryName]");
-        }
-    }
 }
