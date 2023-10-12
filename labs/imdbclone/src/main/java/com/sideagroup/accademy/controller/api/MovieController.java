@@ -132,6 +132,15 @@ public class MovieController {
         }
     }
 
+    @DeleteMapping("{movieId}/celebrities/{celebrityId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeCelebrity(
+            @PathVariable String movieId,
+            @PathVariable String celebrityId) {
+
+        movieServices.removeCelebrity(movieId, celebrityId);
+    }
+
     @Operation(summary = "Deletes a movie", description = "Deletes the movie with the given id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Successfully deleted")

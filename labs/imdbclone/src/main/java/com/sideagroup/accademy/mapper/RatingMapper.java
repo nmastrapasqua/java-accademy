@@ -13,4 +13,11 @@ public class RatingMapper {
         dto.setNumVotes(entity.getNumVotes());
         return dto;
     }
+
+    public Rating toEntity(RatingDto dto) {
+        Rating entity = new Rating();
+        entity.setAverageRating(dto.getAverageRating());
+        entity.setNumVotes(dto.getNumVotes());
+        return entity;
+    }
 }

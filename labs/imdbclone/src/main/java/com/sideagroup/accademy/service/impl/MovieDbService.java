@@ -6,14 +6,14 @@ import com.sideagroup.accademy.dto.MovieDto;
 import com.sideagroup.accademy.exception.GenericServiceException;
 import com.sideagroup.accademy.mapper.MovieCelebrityMapper;
 import com.sideagroup.accademy.mapper.MovieMapper;
-import com.sideagroup.accademy.model.Celebrity;
-import com.sideagroup.accademy.model.Movie;
-import com.sideagroup.accademy.model.MovieCelebrity;
-import com.sideagroup.accademy.model.MovieCelebrityKey;
+import com.sideagroup.accademy.mapper.RatingMapper;
+import com.sideagroup.accademy.model.*;
 import com.sideagroup.accademy.repository.CelebrityRepository;
 import com.sideagroup.accademy.repository.MovieCelebrityRepository;
 import com.sideagroup.accademy.repository.MovieRepository;
+import com.sideagroup.accademy.repository.RatingRepository;
 import com.sideagroup.accademy.service.MovieService;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +39,16 @@ public class MovieDbService implements MovieService {
     private MovieCelebrityRepository movieCelebrityRepository;
 
     @Autowired
+    private RatingRepository ratingRepository;
+
+    @Autowired
     private MovieMapper mapper;
 
     @Autowired
     private MovieCelebrityMapper movieCelebrityMapper;
+
+    @Autowired
+    private RatingMapper ratingMapper;
 
     @Override
     public GetAllMoviesResponseDto getAll(int page, int size, String orderBy, String title) {
@@ -65,12 +71,21 @@ public class MovieDbService implements MovieService {
     }
 
     @Override
+    @Transactional
     public MovieDto create(MovieDto movie) {
         Optional<Movie> opt = repo.findById(movie.getId());
         if (!opt.isEmpty())
             throw new GenericServiceException("Movie with id " + movie.getId() + " already exists");
-        Movie entity = repo.save(mapper.toEntity(movie));
-        return mapper.toDto(entity, false, false);
+
+        Movie movieEntity = mapper.toEntity(movie);
+        movieEntity = repo.save(movieEntity);
+
+        Rating ratingEntity = ratingMapper.toEntity(movie.getRating());
+        ratingEntity.setMovie(movieEntity);
+        ratingEntity = ratingRepository.save(ratingEntity);
+        movieEntity.setRating(ratingEntity);
+
+        return mapper.toDto(movieEntity, false, false);
     }
 
     @Override
@@ -98,7 +113,7 @@ public class MovieDbService implements MovieService {
         MovieCelebrityKey key = new MovieCelebrityKey(celebrityId, movieId);
         Optional<MovieCelebrity> rel = movieCelebrityRepository.findById(key);
         if (!rel.isEmpty())
-            throw new GenericServiceException("Association between " + movieId + " and " + celebrityId + " already exists");
+            return movieCelebrityMapper.toDto(rel.get());
 
         MovieCelebrity entity = new MovieCelebrity(key);
         entity.setCelebrity(celebrity.get());
@@ -110,7 +125,19 @@ public class MovieDbService implements MovieService {
     }
 
     @Override
+    public void removeCelebrity(String movieId, String celebrityId) {
+        logger.info("removeCelebrity called");
+        MovieCelebrityKey key = new MovieCelebrityKey(celebrityId, movieId);
+        movieCelebrityRepository.deleteById(key);
+    }
+
+    @Override
+    @Transactional
     public boolean deleteById(String id) {
+        Optional<Movie> movie = repo.findById(id);
+        if (movie.isEmpty())
+            return false;
+        ratingRepository.deleteById(movie.get().getRating().getId());
         repo.deleteById(id);
         return true;
     }
