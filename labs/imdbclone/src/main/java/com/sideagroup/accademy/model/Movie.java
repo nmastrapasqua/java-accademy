@@ -26,6 +26,7 @@ public class Movie {
     private Set<MovieCelebrity> names;
 
     @OneToMany(mappedBy = "movie")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Country> countries;
 
     @OneToOne(mappedBy = "movie")
