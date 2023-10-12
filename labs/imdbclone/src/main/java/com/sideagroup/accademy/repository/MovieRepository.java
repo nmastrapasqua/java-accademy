@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, String> {
 
-    @Query("SELECT m FROM Movie m WHERE UPPER(m.title) LIKE UPPER(:title) ESCAPE '\\'")
+    @Query("SELECT m FROM Movie m WHERE UPPER(m.title) LIKE UPPER(:title)")
     public Page<Movie> findByTitle(@Param("title") String title, Pageable pageable);
 }
