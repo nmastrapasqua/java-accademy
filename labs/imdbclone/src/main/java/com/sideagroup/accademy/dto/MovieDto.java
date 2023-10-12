@@ -10,21 +10,21 @@ import java.util.List;
 @Getter
 @Setter
 public class MovieDto {
-    @Schema(description = "Movie Id", example = "tt0120804", required = true)
+    @Schema(description = "Movie Id", example = "tt0120804", requiredMode = Schema.RequiredMode.REQUIRED)
     private String id;
-    @Schema(description = "Movie title", required = true)
+    @Schema(description = "Movie title", requiredMode = Schema.RequiredMode.REQUIRED)
     private String title;
-    @Schema(description = "Movie year", required = true)
+    @Schema(description = "Movie year", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer year;
-    @Schema(description = "Running time in minutes", example = "178", required = true)
+    @Schema(description = "Running time in minutes", example = "178", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer runningTime;
-    @Schema(description = "Comma separated genres of a movie", example = "Action,Adventure", required = true)
+    @Schema(description = "Comma separated genres of a movie", example = "Action,Adventure", requiredMode = Schema.RequiredMode.REQUIRED)
     private String genres;
-    @Schema(description = "Movie cast. Not used in POST and PUT", required = false)
+    @Schema(description = "Movie cast.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private List<MovieCelebrityDto> cast;
-    @Schema(description = "Movie rating. Not used in POST and PUT", required = false)
+    @Schema(description = "Movie rating.", requiredMode = Schema.RequiredMode.REQUIRED)
     private RatingDto rating;
-    @Schema(description = "Movie countries. Not used in POST and PUT", required = false)
+    @Schema(description = "Movie countries.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private List<CountryDto> country;
 
     public MovieDto() {
