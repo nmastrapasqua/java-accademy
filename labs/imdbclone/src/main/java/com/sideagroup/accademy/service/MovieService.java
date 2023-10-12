@@ -17,5 +17,8 @@ public interface MovieService {
 
     public MovieCelebrityDto associateCelebrity(String movieId, String celebrityId, MovieCelebrityDto body);
 
+    public void removeCelebrity(String movieId, String celebrityId);
+
+
     public boolean deleteById(String id);
 }

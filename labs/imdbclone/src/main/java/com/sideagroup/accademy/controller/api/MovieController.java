@@ -74,6 +74,15 @@ public class MovieController {
         }
     }
 
+    @DeleteMapping("{movieId}/celebrities/{celebrityId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeCelebrity(
+            @PathVariable String movieId,
+            @PathVariable String celebrityId) {
+
+        movieServices.removeCelebrity(movieId, celebrityId);
+    }
+
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable String id) {

@@ -98,7 +98,7 @@ public class MovieDbService implements MovieService {
         MovieCelebrityKey key = new MovieCelebrityKey(celebrityId, movieId);
         Optional<MovieCelebrity> rel = movieCelebrityRepository.findById(key);
         if (!rel.isEmpty())
-            throw new GenericServiceException("Association between " + movieId + " and " + celebrityId + " already exists");
+            return movieCelebrityMapper.toDto(rel.get());
 
         MovieCelebrity entity = new MovieCelebrity(key);
         entity.setCelebrity(celebrity.get());
@@ -107,6 +107,13 @@ public class MovieDbService implements MovieService {
         entity.setCharacters(body.getCharacters());
         entity = movieCelebrityRepository.save(entity);
         return movieCelebrityMapper.toDto(entity);
+    }
+
+    @Override
+    public void removeCelebrity(String movieId, String celebrityId) {
+        logger.info("removeCelebrity called");
+        MovieCelebrityKey key = new MovieCelebrityKey(celebrityId, movieId);
+        movieCelebrityRepository.deleteById(key);
     }
 
     @Override
