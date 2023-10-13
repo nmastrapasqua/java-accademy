@@ -1,4 +1,4 @@
-package com.sideagroup.accademy.integration.controller;
+package com.sideagroup.accademy.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sideagroup.accademy.controller.api.MovieController;
