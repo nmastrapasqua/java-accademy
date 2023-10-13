@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sideagroup.accademy.dto.MovieCelebrityDto;
 import com.sideagroup.accademy.model.MovieCelebrity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -11,6 +12,9 @@ import java.util.List;
 
 @Component
 public class MovieCelebrityMapper {
+
+    @Autowired
+    ObjectMapper mapper;
 
     public MovieCelebrityDto toDto(MovieCelebrity entity) {
         MovieCelebrityDto dto = new MovieCelebrityDto();
@@ -27,7 +31,6 @@ public class MovieCelebrityMapper {
         if (characters == null)
             return null;
         try {
-            ObjectMapper mapper = new ObjectMapper();
             List<String> characterList =
                     Arrays.asList(mapper.readValue(characters, String[].class));
             return characterList.toString()
