@@ -70,7 +70,7 @@ public class CelebrityController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successfully created"),
             @ApiResponse(
-                    responseCode = "404",
+                    responseCode = "400",
                     description = "A celebrity with same id already exists",
                     content = @Content(schema = @Schema(implementation = DefaultErrorDto.class)))
     })

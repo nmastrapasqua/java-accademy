@@ -79,7 +79,7 @@ public class MovieController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successfully created"),
             @ApiResponse(
-                    responseCode = "404",
+                    responseCode = "400",
                     description = "A movie with same id already exists",
                     content = @Content(schema = @Schema(implementation = DefaultErrorDto.class)))
     })
@@ -117,7 +117,7 @@ public class MovieController {
             @ApiResponse(responseCode = "200", description = "Successfully updated"),
             @ApiResponse(
                     responseCode = "400",
-                    description = "The movie or the celebrity does not exist. The association already exists",
+                    description = "The movie or the celebrity does not exist.",
                     content = @Content(schema = @Schema(implementation = DefaultErrorDto.class)))
     })
     @PutMapping("{movieId}/celebrities/{celebrityId}")
@@ -132,6 +132,11 @@ public class MovieController {
         }
     }
 
+    @Operation(summary = "Remove the celebrity 'celebrityId' from the movie 'movieId'",
+            description = "Remove the celebrity 'celebrityId' from the movie 'movieId'")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Successfully deleted")
+    })
     @DeleteMapping("{movieId}/celebrities/{celebrityId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeCelebrity(
