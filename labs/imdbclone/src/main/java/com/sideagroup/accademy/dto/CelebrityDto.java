@@ -10,14 +10,14 @@ import java.util.List;
 @Getter
 @Setter
 public class CelebrityDto {
-    @Schema(description = "Celebrity Id", example = "nm0089217", required = true)
+    @Schema(description = "Celebrity Id", example = "nm0089217", requiredMode = Schema.RequiredMode.REQUIRED)
     private String id;
-    @Schema(description = "Celebrity full name", example = "Orlando Bloom", required = true)
+    @Schema(description = "Celebrity full name", example = "Orlando Bloom", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
     @Schema(description = "Year of birth", example = "1977")
     private Integer birthYear;
     private Integer deathYear;
-    @Schema(description = "List of movie for this celebrity. Not used in POST and PUT")
+    @Schema(description = "List of movie for this celebrity")
     private List<MovieCelebrityDto> movies;
 
     public CelebrityDto() {
